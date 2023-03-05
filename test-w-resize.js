@@ -1,7 +1,7 @@
 import sharp from "sharp";
 import { statSync } from "node:fs";
 
-const source = "photo.4.jpg";
+const source = "illu.Kasukabe_Tsumugi.png";
 
 const ctx = sharp(source);
 const metadata = await ctx.metadata();
@@ -14,7 +14,7 @@ console.log();
 let timer = process.hrtime();
 const webp = {
     quality: 80,
-    lossless: false,
+    lossless: true,
     nearLossless: false,
     alphaQuality: 100,
     smartSubsample: true,
@@ -24,8 +24,8 @@ console.log("WEBP");
 console.log(webp);
 await ctx
     .resize({
-        width: 1024,
-        height: 1024,
+        width: 2048,
+        height: 2048,
         fit: "inside",
         withoutEnlargement: true,
     })
@@ -40,15 +40,15 @@ console.log();
 timer = process.hrtime();
 const avif = {
     quality: 50,
-    lossless: false,
-    effort: 3,
+    lossless: true,
+    effort: 1,
 };
 console.log("AVIF");
 console.log(avif);
 await ctx
     .resize({
-        width: 1024,
-        height: 1024,
+        width: 2048,
+        height: 2048,
         fit: "inside",
         withoutEnlargement: true,
     })
