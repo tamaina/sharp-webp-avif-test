@@ -1,7 +1,7 @@
 import sharp from "sharp";
 import { statSync } from "node:fs";
 
-const source = "test.4.jpg";
+const source = "test.6.jpg";
 
 const ctx = sharp(source);
 const metadata = await ctx.metadata();
@@ -33,7 +33,7 @@ console.log();
 
 timer = process.hrtime();
 const avif = {
-    quality: 60,
+    quality: 50,
     lossless: false,
     effort: 1,
 };
