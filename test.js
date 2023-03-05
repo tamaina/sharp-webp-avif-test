@@ -14,7 +14,7 @@ const webp = {
     nearLossless: false,
     alphaQuality: 100,
     smartSubsample: false,
-    effort: 0,
+    effort: 4,
 };
 console.log("WEBP");
 console.log(webp);
@@ -31,7 +31,7 @@ timer = process.hrtime();
 const avif = {
     quality: 50,
     lossless: false,
-    effort: 0,
+    effort: 4,
 };
 console.log("AVIF");
 console.log(avif);
