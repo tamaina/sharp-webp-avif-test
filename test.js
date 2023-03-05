@@ -1,10 +1,12 @@
 import sharp from "sharp";
 import { statSync } from "node:fs";
 
-const ctx = sharp("test.jpg");
+const source = "test.3.png";
+
+const ctx = sharp(source);
 const metadata = await ctx.metadata();
 console.log(metadata.format, metadata.width, metadata.height);
-console.log((statSync("test.jpg").size / 1000).toFixed(0), "KB");
+console.log((statSync(source).size / 1000).toFixed(0), "KB");
 console.log();
 
 let timer = process.hrtime();
@@ -14,7 +16,7 @@ const webp = {
     nearLossless: false,
     alphaQuality: 100,
     smartSubsample: false,
-    effort: 4,
+    effort: 0,
 };
 console.log("WEBP");
 console.log(webp);
@@ -31,7 +33,7 @@ timer = process.hrtime();
 const avif = {
     quality: 50,
     lossless: false,
-    effort: 4,
+    effort: 0,
 };
 console.log("AVIF");
 console.log(avif);
