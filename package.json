@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "commander": "^10.0.0",
     "glob": "^9.2.1",
+    "mkdirp": "^2.1.5",
+    "rename": "^1.0.4",
     "sharp": "^0.31.3"
   }
 }
