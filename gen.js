@@ -12,8 +12,8 @@ program
     .option("-e, --effort <effort>", "effort", 1)
     .option("-h, --height <height>", "height", 2048)
     .option("-t, --type <type>", "type", "webp")
-    .option("--lossless", "lossless")
-    .option("--near-lossless", "near-lossless")
+    .option("-l, --lossless", "lossless")
+    .option("-n, --near-lossless", "near-lossless")
     ;
 program.parse();
 const options = program.opts();
@@ -29,7 +29,7 @@ console.log();
 
 const target = rename(source, {
     dirname: "out",
-    suffix: `.h${options.height}.q${options.quality}.e${options.effort}`,
+    suffix: `.h${options.height}.noss${options.lossless ? '.lo' : options.nearLossless ? '.nl' : ''}.q${options.quality}.e${options.effort}`,
     extname: `.${options.type}`,
 }).toString();
 
@@ -47,16 +47,45 @@ if (options.type === "avif") {
         .resize({
             height: Number(options.height),
             fit: "inside",
+            withoutEnlargement: true,
         })
         .avif(avif)
-        .toFile(target);    
+        .toFile(target);
+} else if (options.type === "png") {
+    const png = {
+        quality: Number(options.quality),
+        effort: Number(options.effort),
+        compressionLevel: 9,
+        adaptiveFiltering: false,
+    };
+
+    console.log("PNG");
+    console.log(png);
+    await ctx
+        .resize({
+            height: Number(options.height),
+            fit: "inside",
+            withoutEnlargement: true,
+        })
+        .png(png)
+        .toFile(target);
+} else if (options.type === "jpeg") {
+    console.log("JPEG");
+    await ctx
+        .resize({
+            height: Number(options.height),
+            fit: "inside",
+            withoutEnlargement: true,
+        })
+        .jpeg()
+        .toFile(target);
 } else {
     const webp = {
         quality: Number(options.quality),
         lossless: options.lossless,
         nearLossless: options.nearLossless,
-        alphaQuality: 100,
-        smartSubsample: true,
+        alphaQuality: 95,
+        smartSubsample: false,
         effort: Number(options.effort),
     };
     
@@ -66,6 +95,7 @@ if (options.type === "avif") {
         .resize({
             height: Number(options.height),
             fit: "inside",
+            withoutEnlargement: true,
         })
         .webp(webp)
         .toFile(target);
