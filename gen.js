@@ -29,7 +29,7 @@ console.log();
 
 const target = rename(source, {
     dirname: "out",
-    suffix: `.h${options.height}.noss${options.lossless ? '.lo' : options.nearLossless ? '.nl' : ''}.q${options.quality}.e${options.effort}`,
+    suffix: `.h${options.height}${options.lossless ? '.lo' : options.nearLossless ? '.nl' : ''}.q${options.quality}.e${options.effort}`,
     extname: `.${options.type}`,
 }).toString();
 
@@ -85,7 +85,7 @@ if (options.type === "avif") {
         lossless: options.lossless,
         nearLossless: options.nearLossless,
         alphaQuality: 95,
-        smartSubsample: false,
+        smartSubsample: true,
         effort: Number(options.effort),
     };
     
